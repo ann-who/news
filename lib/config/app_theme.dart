@@ -10,6 +10,7 @@ class AppSizes {
   static const double mediumPadding = 14.0;
   static const double largePadding = 22.0;
   static const double cardSide = 200.0;
+  static const int shimmersQuantity = 5;
 }
 
 class AppColors {
@@ -19,6 +20,7 @@ class AppColors {
   static const error = Color(0xFFD10000);
   static const lightGray = Color(0xFFF7F7F2);
   static const lightGreen = Color(0xFFE4E6C3);
+  static const gray = Color(0xFFDBD7D2);
 }
 
 class AppTheme {

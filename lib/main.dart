@@ -20,36 +20,35 @@ class MyApp extends StatelessWidget {
       create: (context) => MockNewsRepository(),
       child: BlocProvider(
         create: (context) => NewsBloc(
-          newsRepository: RepositoryProvider.of<MockNewsRepository>(
-            context,
-            listen: false,
-          ),
+          newsRepository: RepositoryProvider.of<MockNewsRepository>(context),
         )
           ..add(FeaturedArticlesLoaded())
           ..add(LatestArticlesLoaded()),
         child: MaterialApp(
-          title: 'Flutter Demo',
+          title: 'QtimNews',
           theme: AppTheme.theme(),
           home: const AllNewsPage(),
-          onGenerateRoute: (settings) {
-            if (settings.name == ArticleDetailsPage.routeName) {
-              // Could pass Article but in task description it was
-              // specified to get an article by id ondetailed screen
-              final articleId = settings.arguments as String;
-
-              return MaterialPageRoute(
-                builder: (context) {
-                  return ArticleDetailsPage(articleId: articleId);
-                },
-              );
-            }
-
-            assert(false, 'Need to implement ${settings.name}');
-            return null;
-          },
+          onGenerateRoute: _onGenerateRoute,
           debugShowCheckedModeBanner: false,
         ),
       ),
     );
+  }
+
+  Route<dynamic>? _onGenerateRoute(RouteSettings settings) {
+    if (settings.name == ArticleDetailsPage.routeName) {
+      // Could pass Article but in task description it was
+      // specified to get an article by id ondetailed screen
+      final articleId = settings.arguments as String;
+
+      return MaterialPageRoute(
+        builder: (context) {
+          return ArticleDetailsPage(articleId: articleId);
+        },
+      );
+    }
+
+    assert(false, 'Need to implement ${settings.name}');
+    return null;
   }
 }

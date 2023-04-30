@@ -16,6 +16,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     on<LatestArticlesLoaded>(_onLatestArticlesLoaded);
     on<FeaturedArticlesLoaded>(_onFeaturedArticlesLoaded);
     on<SingleArticleLoaded>(_onSingleArticleLoaded);
+    on<ArticleReaded>(_onArticleReaded);
     on<AllArticlesReaded>(_onAllArticlesReaded);
   }
 
@@ -25,7 +26,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
   ) async {
     emit(
       state.copyWith(
-        articlesLoadingState: LoadingState.loading,
+        latestArticlesLoadingState: LoadingState.loading,
       ),
     );
 
@@ -36,7 +37,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
       emit(
         state.copyWith(
           latestArticles: [],
-          articlesLoadingState: LoadingState.failure,
+          latestArticlesLoadingState: LoadingState.failure,
         ),
       );
       return;
@@ -44,7 +45,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
 
     emit(
       state.copyWith(
-        articlesLoadingState: LoadingState.loaded,
+        latestArticlesLoadingState: LoadingState.loaded,
         latestArticles: latestArticles,
       ),
     );
@@ -56,7 +57,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
   ) async {
     emit(
       state.copyWith(
-        articlesLoadingState: LoadingState.loading,
+        featuredArticlesLoadingState: LoadingState.loading,
       ),
     );
 
@@ -67,7 +68,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
       emit(
         state.copyWith(
           featuredArticles: [],
-          articlesLoadingState: LoadingState.failure,
+          featuredArticlesLoadingState: LoadingState.failure,
         ),
       );
       return;
@@ -75,7 +76,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
 
     emit(
       state.copyWith(
-        articlesLoadingState: LoadingState.loaded,
+        featuredArticlesLoadingState: LoadingState.loaded,
         featuredArticles: featuredArticles,
       ),
     );
@@ -87,7 +88,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
   ) async {
     emit(
       state.copyWith(
-        singleArticleLoadingState: LoadingState.loading,
+        detailedArticleLoadingState: LoadingState.loading,
       ),
     );
 
@@ -98,33 +99,39 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
       emit(
         state.copyWith(
           detailedArticle: null,
-          singleArticleLoadingState: LoadingState.failure,
+          detailedArticleLoadingState: LoadingState.failure,
         ),
       );
       return;
     }
 
-    // Mark opened article as 'readed'
-    var allArticles = List<Article>.from(state.latestArticles);
+    emit(
+      state.copyWith(
+        detailedArticle: loadedArticle,
+        detailedArticleLoadingState: LoadingState.loaded,
+      ),
+    );
+  }
 
-    List<Article> readedArticles = allArticles.map(
-      (article) {
-        if (article.id == loadedArticle.id) {
-          return article.copyWith(isReaded: true);
-        }
-        return article;
-      },
-    ).toList();
+  void _onArticleReaded(
+    ArticleReaded event,
+    Emitter<NewsState> emit,
+  ) async {
+    updateArticle(Article article) => event.articleId != article.id
+        ? article
+        : article.copyWith(isReaded: true);
 
-    var featuredArticles =
-        readedArticles.where((article) => article.isFeatured == true).toList();
+    var readedLatestArticles = List<Article>.from(
+      state.latestArticles.map(updateArticle).toList(),
+    );
+    var readedFeaturedArticles = List<Article>.from(
+      state.featuredArticles.map(updateArticle).toList(),
+    );
 
     emit(
       state.copyWith(
-        latestArticles: readedArticles,
-        featuredArticles: featuredArticles,
-        detailedArticle: loadedArticle,
-        singleArticleLoadingState: LoadingState.loaded,
+        latestArticles: readedLatestArticles,
+        featuredArticles: readedFeaturedArticles,
       ),
     );
   }
@@ -133,14 +140,16 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     AllArticlesReaded event,
     Emitter<NewsState> emit,
   ) async {
-    var latestArticles = List<Article>.from(state.latestArticles);
-    var readedLatestArticles = latestArticles
-        .map((article) => article.copyWith(isReaded: true))
-        .toList();
-    var featuredArticles = List<Article>.from(state.featuredArticles);
-    var readedFeaturedArticles = featuredArticles
-        .map((article) => article.copyWith(isReaded: true))
-        .toList();
+    var readedLatestArticles = List<Article>.from(
+      state.latestArticles
+          .map((article) => article.copyWith(isReaded: true))
+          .toList(),
+    );
+    var readedFeaturedArticles = List<Article>.from(
+      state.featuredArticles
+          .map((article) => article.copyWith(isReaded: true))
+          .toList(),
+    );
 
     emit(
       state.copyWith(

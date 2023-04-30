@@ -18,6 +18,13 @@ class SingleArticleLoaded extends NewsEvent {
   });
 }
 
+class ArticleReaded extends NewsEvent {
+  final String articleId;
+  ArticleReaded({
+    required this.articleId,
+  });
+}
+
 class AllArticlesReaded extends NewsEvent {
   AllArticlesReaded();
 }

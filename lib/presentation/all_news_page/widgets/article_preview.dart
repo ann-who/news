@@ -40,21 +40,7 @@ class ArticlePreview extends StatelessWidget {
                     cardHeight: cardHeight,
                     cardWidth: cardWidth,
                   ),
-                  if (article.isReaded == false)
-                    Positioned(
-                      right: 10,
-                      top: 10,
-                      height: AppSizes.unreadedBubble,
-                      width: AppSizes.unreadedBubble,
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(AppSizes.cardCorner),
-                          ),
-                          color: AppColors.orange,
-                        ),
-                      ),
-                    ),
+                  if (article.isReaded == false) const UnreadBubble(),
                 ],
               ),
             ),
@@ -70,6 +56,30 @@ class ArticlePreview extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class UnreadBubble extends StatelessWidget {
+  const UnreadBubble({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      right: 10,
+      top: 10,
+      height: AppSizes.unreadedBubble,
+      width: AppSizes.unreadedBubble,
+      child: Container(
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(
+            Radius.circular(AppSizes.cardCorner),
+          ),
+          color: AppColors.orange,
         ),
       ),
     );

@@ -1,34 +1,93 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/config/app_theme.dart';
-import 'package:news_app/data/model/article.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'article_preview.dart';
+import 'package:news_app/config/app_theme.dart';
+import 'package:news_app/presentation/all_news_page/widgets/article_preview.dart';
+import 'package:news_app/presentation/bloc/news.dart';
+import 'package:shimmer/shimmer.dart';
 
 class LatestNewsWidget extends StatelessWidget {
-  final List<Article> latestArticles;
+  const LatestNewsWidget({super.key});
 
-  const LatestNewsWidget({
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<NewsBloc, NewsState>(
+      buildWhen: (previous, current) =>
+          previous.latestArticles != current.latestArticles,
+      builder: (context, state) {
+        if (state.latestArticlesLoadingState == LoadingState.loading) {
+          return const LoadingLatestShimmers();
+        }
+        return ListView.separated(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: state.latestArticles.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: AppSizes.mediumPadding),
+              child: ArticlePreview(
+                article: state.latestArticles[index],
+                cardHeight: AppSizes.cardSide,
+                cardWidth: MediaQuery.of(context).size.width,
+              ),
+            );
+          },
+          separatorBuilder: (BuildContext context, int index) =>
+              const Divider(),
+        );
+      },
+    );
+  }
+}
+
+class LoadingLatestShimmers extends StatelessWidget {
+  const LoadingLatestShimmers({
     super.key,
-    required this.latestArticles,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: latestArticles.length,
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: AppSizes.mediumPadding),
-          child: ArticlePreview(
-            article: latestArticles[index],
-            cardHeight: AppSizes.cardSide,
-            cardWidth: MediaQuery.of(context).size.width,
-          ),
-        );
-      },
-      separatorBuilder: (BuildContext context, int index) => const Divider(),
+    return Shimmer.fromColors(
+      baseColor: AppColors.gray,
+      highlightColor: AppColors.lightGray,
+      child: ListView.separated(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (_, __) {
+          return Padding(
+            padding:
+                const EdgeInsets.symmetric(vertical: AppSizes.mediumPadding),
+            child: SizedBox(
+              child: Column(
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(AppSizes.cardCorner),
+                      ),
+                      color: AppColors.gray,
+                    ),
+                    height: AppSizes.cardSide,
+                  ),
+                  const SizedBox(height: AppSizes.mediumPadding),
+                  Container(
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(AppSizes.cardCorner),
+                      ),
+                      color: AppColors.gray,
+                    ),
+                    height: AppSizes.largePadding,
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+        itemCount: AppSizes.shimmersQuantity,
+        separatorBuilder: (BuildContext context, int index) => const Divider(),
+      ),
     );
   }
 }

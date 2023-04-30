@@ -19,8 +19,11 @@ mixin _$NewsState {
   List<Article> get latestArticles => throw _privateConstructorUsedError;
   List<Article> get featuredArticles => throw _privateConstructorUsedError;
   Article? get detailedArticle => throw _privateConstructorUsedError;
-  LoadingState get articlesLoadingState => throw _privateConstructorUsedError;
-  LoadingState get singleArticleLoadingState =>
+  LoadingState get latestArticlesLoadingState =>
+      throw _privateConstructorUsedError;
+  LoadingState get featuredArticlesLoadingState =>
+      throw _privateConstructorUsedError;
+  LoadingState get detailedArticleLoadingState =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -37,8 +40,9 @@ abstract class $NewsStateCopyWith<$Res> {
       {List<Article> latestArticles,
       List<Article> featuredArticles,
       Article? detailedArticle,
-      LoadingState articlesLoadingState,
-      LoadingState singleArticleLoadingState});
+      LoadingState latestArticlesLoadingState,
+      LoadingState featuredArticlesLoadingState,
+      LoadingState detailedArticleLoadingState});
 }
 
 /// @nodoc
@@ -57,8 +61,9 @@ class _$NewsStateCopyWithImpl<$Res, $Val extends NewsState>
     Object? latestArticles = null,
     Object? featuredArticles = null,
     Object? detailedArticle = freezed,
-    Object? articlesLoadingState = null,
-    Object? singleArticleLoadingState = null,
+    Object? latestArticlesLoadingState = null,
+    Object? featuredArticlesLoadingState = null,
+    Object? detailedArticleLoadingState = null,
   }) {
     return _then(_value.copyWith(
       latestArticles: null == latestArticles
@@ -73,13 +78,17 @@ class _$NewsStateCopyWithImpl<$Res, $Val extends NewsState>
           ? _value.detailedArticle
           : detailedArticle // ignore: cast_nullable_to_non_nullable
               as Article?,
-      articlesLoadingState: null == articlesLoadingState
-          ? _value.articlesLoadingState
-          : articlesLoadingState // ignore: cast_nullable_to_non_nullable
+      latestArticlesLoadingState: null == latestArticlesLoadingState
+          ? _value.latestArticlesLoadingState
+          : latestArticlesLoadingState // ignore: cast_nullable_to_non_nullable
               as LoadingState,
-      singleArticleLoadingState: null == singleArticleLoadingState
-          ? _value.singleArticleLoadingState
-          : singleArticleLoadingState // ignore: cast_nullable_to_non_nullable
+      featuredArticlesLoadingState: null == featuredArticlesLoadingState
+          ? _value.featuredArticlesLoadingState
+          : featuredArticlesLoadingState // ignore: cast_nullable_to_non_nullable
+              as LoadingState,
+      detailedArticleLoadingState: null == detailedArticleLoadingState
+          ? _value.detailedArticleLoadingState
+          : detailedArticleLoadingState // ignore: cast_nullable_to_non_nullable
               as LoadingState,
     ) as $Val);
   }
@@ -96,8 +105,9 @@ abstract class _$$_NewsStateCopyWith<$Res> implements $NewsStateCopyWith<$Res> {
       {List<Article> latestArticles,
       List<Article> featuredArticles,
       Article? detailedArticle,
-      LoadingState articlesLoadingState,
-      LoadingState singleArticleLoadingState});
+      LoadingState latestArticlesLoadingState,
+      LoadingState featuredArticlesLoadingState,
+      LoadingState detailedArticleLoadingState});
 }
 
 /// @nodoc
@@ -114,8 +124,9 @@ class __$$_NewsStateCopyWithImpl<$Res>
     Object? latestArticles = null,
     Object? featuredArticles = null,
     Object? detailedArticle = freezed,
-    Object? articlesLoadingState = null,
-    Object? singleArticleLoadingState = null,
+    Object? latestArticlesLoadingState = null,
+    Object? featuredArticlesLoadingState = null,
+    Object? detailedArticleLoadingState = null,
   }) {
     return _then(_$_NewsState(
       latestArticles: null == latestArticles
@@ -130,13 +141,17 @@ class __$$_NewsStateCopyWithImpl<$Res>
           ? _value.detailedArticle
           : detailedArticle // ignore: cast_nullable_to_non_nullable
               as Article?,
-      articlesLoadingState: null == articlesLoadingState
-          ? _value.articlesLoadingState
-          : articlesLoadingState // ignore: cast_nullable_to_non_nullable
+      latestArticlesLoadingState: null == latestArticlesLoadingState
+          ? _value.latestArticlesLoadingState
+          : latestArticlesLoadingState // ignore: cast_nullable_to_non_nullable
               as LoadingState,
-      singleArticleLoadingState: null == singleArticleLoadingState
-          ? _value.singleArticleLoadingState
-          : singleArticleLoadingState // ignore: cast_nullable_to_non_nullable
+      featuredArticlesLoadingState: null == featuredArticlesLoadingState
+          ? _value.featuredArticlesLoadingState
+          : featuredArticlesLoadingState // ignore: cast_nullable_to_non_nullable
+              as LoadingState,
+      detailedArticleLoadingState: null == detailedArticleLoadingState
+          ? _value.detailedArticleLoadingState
+          : detailedArticleLoadingState // ignore: cast_nullable_to_non_nullable
               as LoadingState,
     ));
   }
@@ -144,15 +159,17 @@ class __$$_NewsStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_NewsState implements _NewsState {
+class _$_NewsState extends _NewsState {
   const _$_NewsState(
       {final List<Article> latestArticles = const [],
       final List<Article> featuredArticles = const [],
       this.detailedArticle,
-      this.articlesLoadingState = LoadingState.init,
-      this.singleArticleLoadingState = LoadingState.init})
+      this.latestArticlesLoadingState = LoadingState.init,
+      this.featuredArticlesLoadingState = LoadingState.init,
+      this.detailedArticleLoadingState = LoadingState.init})
       : _latestArticles = latestArticles,
-        _featuredArticles = featuredArticles;
+        _featuredArticles = featuredArticles,
+        super._();
 
   final List<Article> _latestArticles;
   @override
@@ -177,14 +194,17 @@ class _$_NewsState implements _NewsState {
   final Article? detailedArticle;
   @override
   @JsonKey()
-  final LoadingState articlesLoadingState;
+  final LoadingState latestArticlesLoadingState;
   @override
   @JsonKey()
-  final LoadingState singleArticleLoadingState;
+  final LoadingState featuredArticlesLoadingState;
+  @override
+  @JsonKey()
+  final LoadingState detailedArticleLoadingState;
 
   @override
   String toString() {
-    return 'NewsState(latestArticles: $latestArticles, featuredArticles: $featuredArticles, detailedArticle: $detailedArticle, articlesLoadingState: $articlesLoadingState, singleArticleLoadingState: $singleArticleLoadingState)';
+    return 'NewsState(latestArticles: $latestArticles, featuredArticles: $featuredArticles, detailedArticle: $detailedArticle, latestArticlesLoadingState: $latestArticlesLoadingState, featuredArticlesLoadingState: $featuredArticlesLoadingState, detailedArticleLoadingState: $detailedArticleLoadingState)';
   }
 
   @override
@@ -198,11 +218,18 @@ class _$_NewsState implements _NewsState {
                 .equals(other._featuredArticles, _featuredArticles) &&
             (identical(other.detailedArticle, detailedArticle) ||
                 other.detailedArticle == detailedArticle) &&
-            (identical(other.articlesLoadingState, articlesLoadingState) ||
-                other.articlesLoadingState == articlesLoadingState) &&
-            (identical(other.singleArticleLoadingState,
-                    singleArticleLoadingState) ||
-                other.singleArticleLoadingState == singleArticleLoadingState));
+            (identical(other.latestArticlesLoadingState,
+                    latestArticlesLoadingState) ||
+                other.latestArticlesLoadingState ==
+                    latestArticlesLoadingState) &&
+            (identical(other.featuredArticlesLoadingState,
+                    featuredArticlesLoadingState) ||
+                other.featuredArticlesLoadingState ==
+                    featuredArticlesLoadingState) &&
+            (identical(other.detailedArticleLoadingState,
+                    detailedArticleLoadingState) ||
+                other.detailedArticleLoadingState ==
+                    detailedArticleLoadingState));
   }
 
   @override
@@ -211,8 +238,9 @@ class _$_NewsState implements _NewsState {
       const DeepCollectionEquality().hash(_latestArticles),
       const DeepCollectionEquality().hash(_featuredArticles),
       detailedArticle,
-      articlesLoadingState,
-      singleArticleLoadingState);
+      latestArticlesLoadingState,
+      featuredArticlesLoadingState,
+      detailedArticleLoadingState);
 
   @JsonKey(ignore: true)
   @override
@@ -221,13 +249,15 @@ class _$_NewsState implements _NewsState {
       __$$_NewsStateCopyWithImpl<_$_NewsState>(this, _$identity);
 }
 
-abstract class _NewsState implements NewsState {
+abstract class _NewsState extends NewsState {
   const factory _NewsState(
       {final List<Article> latestArticles,
       final List<Article> featuredArticles,
       final Article? detailedArticle,
-      final LoadingState articlesLoadingState,
-      final LoadingState singleArticleLoadingState}) = _$_NewsState;
+      final LoadingState latestArticlesLoadingState,
+      final LoadingState featuredArticlesLoadingState,
+      final LoadingState detailedArticleLoadingState}) = _$_NewsState;
+  const _NewsState._() : super._();
 
   @override
   List<Article> get latestArticles;
@@ -236,9 +266,11 @@ abstract class _NewsState implements NewsState {
   @override
   Article? get detailedArticle;
   @override
-  LoadingState get articlesLoadingState;
+  LoadingState get latestArticlesLoadingState;
   @override
-  LoadingState get singleArticleLoadingState;
+  LoadingState get featuredArticlesLoadingState;
+  @override
+  LoadingState get detailedArticleLoadingState;
   @override
   @JsonKey(ignore: true)
   _$$_NewsStateCopyWith<_$_NewsState> get copyWith =>

@@ -15,9 +15,7 @@ class MockNewsRepository implements AbstractNewsRepository {
 
   @override
   Future<List<Article>> getFeaturedArticles() async {
-    return _mockArticles
-        .where((article) => article.isFeatured == true)
-        .toList();
+    return _mockArticles.where((article) => article.isFeatured).toList();
   }
 }
 
@@ -102,7 +100,7 @@ The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for t
     isFeatured: true,
   ),
   Article(
-    id: '028ad0e8-402c-4e1f-b822-5dc80bc70390',
+    id: 'edb2779b-9199-57cc-ae7e-80a415ca2fe5',
     title: 'There was only one way to do things in the Statton house.',
     publicationDate: DateTime.now().subtract(const Duration(days: 5)),
     imageUrl: 'https://ibb.co/SvH799m',
@@ -111,7 +109,7 @@ The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for t
     isFeatured: true,
   ),
   Article(
-    id: '028ad0e8-402c-4e1f-b822-5dc80bc70390',
+    id: '5e0735dd-9dfb-5128-8991-ab676f646111',
     title: 'He couldn\'t remember exactly where he had read it',
     publicationDate: DateTime.now().subtract(const Duration(days: 5, hours: 1)),
     imageUrl: 'https://ibb.co/Wz7JMHR',
