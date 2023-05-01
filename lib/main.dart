@@ -8,11 +8,11 @@ import 'package:news_app/presentation/article_details_page/article_details_page.
 import 'package:news_app/presentation/bloc/news_bloc.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const NewsApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class NewsApp extends StatelessWidget {
+  const NewsApp({super.key});
 
   @override
   Widget build(BuildContext context) {

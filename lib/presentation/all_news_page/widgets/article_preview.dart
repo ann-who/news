@@ -4,6 +4,8 @@ import 'package:news_app/config/app_theme.dart';
 import 'package:news_app/data/model/article.dart';
 import 'package:news_app/presentation/common_widgets/article_picture.dart';
 
+/// Article preview for AllNewsPage.
+/// There are picture, title and readed/unreaded mark
 class ArticlePreview extends StatelessWidget {
   final Article article;
   final double cardHeight;

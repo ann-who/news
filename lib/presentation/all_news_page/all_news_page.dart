@@ -7,6 +7,7 @@ import 'package:news_app/presentation/all_news_page/widgets/featured_news_widget
 import 'package:news_app/presentation/all_news_page/widgets/latest_news_widget.dart';
 import 'package:news_app/presentation/bloc/news.dart';
 
+/// Class that represents screen with two news lists and "Read all" button.
 class AllNewsPage extends StatelessWidget {
   const AllNewsPage({super.key});
 
@@ -52,8 +53,15 @@ class AllNewsPage extends StatelessWidget {
                         previous.hasFailures != current.hasFailures,
                     builder: (context, state) {
                       if (state.hasFailures) {
-                        return const Center(
-                          child: Text(AppText.appError),
+                        return Padding(
+                          padding: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.height * 0.4,
+                          ),
+                          child: Text(
+                            AppText.appError,
+                            style: Theme.of(context).textTheme.headlineMedium,
+                            textAlign: TextAlign.center,
+                          ),
                         );
                       }
                       return Column(

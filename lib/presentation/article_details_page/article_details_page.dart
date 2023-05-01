@@ -6,7 +6,11 @@ import 'package:news_app/config/app_text.dart';
 import 'package:news_app/config/app_theme.dart';
 import 'package:news_app/presentation/bloc/news.dart';
 import 'package:news_app/presentation/common_widgets/article_picture.dart';
+import 'package:shimmer/shimmer.dart';
 
+/// Class that represents screen with detailed article info:
+/// title, publication date, image and text. Also contains loading states (
+/// loaded, loading and failure widgets)
 class ArticleDetailsPage extends StatefulWidget {
   final String articleId;
 
@@ -24,6 +28,8 @@ class ArticleDetailsPage extends StatefulWidget {
 class _ArticleDetailsPageState extends State<ArticleDetailsPage> {
   @override
   void initState() {
+    /// Load single article
+
     context
         .read<NewsBloc>()
         .add(SingleArticleLoaded(articleId: widget.articleId));
@@ -46,6 +52,8 @@ class _ArticleDetailsPageState extends State<ArticleDetailsPage> {
                   previous.detailedArticleLoadingState !=
                   current.detailedArticleLoadingState,
               listener: (context, state) {
+                /// Mark article as readed only if it was loaded
+
                 if (state.detailedArticle != null &&
                     state.detailedArticleLoadingState == LoadingState.loaded) {
                   context
@@ -56,14 +64,13 @@ class _ArticleDetailsPageState extends State<ArticleDetailsPage> {
               builder: (context, state) {
                 if ([LoadingState.init, LoadingState.loading]
                     .contains(state.detailedArticleLoadingState)) {
-                  return const Center(
-                    child: CircularProgressIndicator(
-                      color: AppColors.orange,
-                    ),
-                  );
+                  return const LoadingArticleShimmer();
                 } else if (state.detailedArticleLoadingState ==
                     LoadingState.failure) {
-                  return Center(
+                  return Padding(
+                    padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.4,
+                    ),
                     child: Text(
                       AppText.articleNotFound,
                       style: Theme.of(context).textTheme.headlineMedium,
@@ -73,7 +80,7 @@ class _ArticleDetailsPageState extends State<ArticleDetailsPage> {
 
                 return Column(
                   children: [
-                    // Header
+                    /// Header
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -93,14 +100,16 @@ class _ArticleDetailsPageState extends State<ArticleDetailsPage> {
                       ],
                     ),
                     const SizedBox(height: AppSizes.largePadding),
-                    // Image
+
+                    /// Image
                     ArticlePicture(
                       article: state.detailedArticle!,
                       cardHeight: AppSizes.cardSide,
                       cardWidth: MediaQuery.of(context).size.width,
                     ),
                     const SizedBox(height: AppSizes.largePadding),
-                    // Description
+
+                    /// Description
                     Text(
                       state.detailedArticle!.description,
                       style: Theme.of(context).textTheme.bodyMedium,
@@ -110,6 +119,72 @@ class _ArticleDetailsPageState extends State<ArticleDetailsPage> {
               },
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class LoadingArticleShimmer extends StatelessWidget {
+  const LoadingArticleShimmer({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: AppColors.gray,
+      highlightColor: AppColors.lightGray,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: AppSizes.mediumPadding),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(AppSizes.cardCorner),
+                    ),
+                    color: AppColors.gray,
+                  ),
+                  height: AppSizes.largePadding,
+                  width: MediaQuery.of(context).size.width * 0.5,
+                ),
+                Container(
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(AppSizes.cardCorner),
+                    ),
+                    color: AppColors.gray,
+                  ),
+                  height: AppSizes.largePadding,
+                  width: MediaQuery.of(context).size.width * 0.3,
+                ),
+              ],
+            ),
+            const SizedBox(height: AppSizes.largePadding),
+            Container(
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(AppSizes.cardCorner),
+                ),
+                color: AppColors.gray,
+              ),
+              height: AppSizes.cardSide,
+            ),
+            const SizedBox(height: AppSizes.largePadding),
+            Container(
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(AppSizes.cardCorner),
+                ),
+                color: AppColors.gray,
+              ),
+              height: MediaQuery.of(context).size.height * 0.2,
+            ),
+          ],
         ),
       ),
     );

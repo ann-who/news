@@ -48,7 +48,7 @@ class Article {
     );
   }
 
-  // Image URL parser as links in given models lead to a page, not to an image
+  /// Image URL parser as links in given models lead to a page, not to an image
   Future<String?> get realImageUrl async {
     if (_realImageUrl != null) {
       return _realImageUrl;

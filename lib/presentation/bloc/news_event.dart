@@ -1,5 +1,8 @@
 part of 'news_bloc.dart';
 
+/// Class for possible events with news.
+/// It's abstract so that in the future it will be possible to add events.
+
 abstract class NewsEvent {}
 
 class LatestArticlesLoaded extends NewsEvent {

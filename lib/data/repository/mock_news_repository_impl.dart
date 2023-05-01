@@ -19,7 +19,7 @@ class MockNewsRepository implements AbstractNewsRepository {
   }
 }
 
-// Added new flag 'isFeatured' for making difference between desplayed lists
+/// Added new flag 'isFeatured' for making difference between desplayed lists
 final _mockArticles = [
   Article(
     id: '1108389a-b3db-11ec-b909-0242ac120002',

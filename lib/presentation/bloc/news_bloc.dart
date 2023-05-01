@@ -7,6 +7,7 @@ part 'news_bloc.freezed.dart';
 part 'news_event.dart';
 part 'news_state.dart';
 
+/// Bloc for working with news
 class NewsBloc extends Bloc<NewsEvent, NewsState> {
   final AbstractNewsRepository newsRepository;
 
@@ -19,6 +20,9 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     on<ArticleReaded>(_onArticleReaded);
     on<AllArticlesReaded>(_onAllArticlesReaded);
   }
+
+  /// Event handler when getting latest news.
+  /// We emit multiply states in response to the incoming event.
 
   void _onLatestArticlesLoaded(
     LatestArticlesLoaded event,
@@ -43,6 +47,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
       return;
     }
 
+    /// If request was allowed, we emit new state with recieved articles
     emit(
       state.copyWith(
         latestArticlesLoadingState: LoadingState.loaded,
@@ -50,6 +55,9 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
       ),
     );
   }
+
+  /// Event handler when getting featured news.
+  /// We emit multiply states in response to the incoming event.
 
   void _onFeaturedArticlesLoaded(
     FeaturedArticlesLoaded event,
@@ -74,6 +82,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
       return;
     }
 
+    /// If request was allowed, we emit new state with recieved articles
     emit(
       state.copyWith(
         featuredArticlesLoadingState: LoadingState.loaded,
@@ -81,6 +90,9 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
       ),
     );
   }
+
+  /// Event handler when getting one article.
+  /// We emit multiply states in response to the incoming event.
 
   void _onSingleArticleLoaded(
     SingleArticleLoaded event,
@@ -105,6 +117,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
       return;
     }
 
+    /// If request was allowed, we emit new state with recieved article
     emit(
       state.copyWith(
         detailedArticle: loadedArticle,
@@ -112,6 +125,9 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
       ),
     );
   }
+
+  /// Event handler when a specific article was readed. Event called
+  /// only if this article was successfuly loaded.
 
   void _onArticleReaded(
     ArticleReaded event,
@@ -128,6 +144,8 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
       state.featuredArticles.map(updateArticle).toList(),
     );
 
+    /// We emit new state with featured and latest lists in case if readed article
+    /// was in both lists
     emit(
       state.copyWith(
         latestArticles: readedLatestArticles,
@@ -135,6 +153,10 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
       ),
     );
   }
+
+  /// Event handler when user wants to mark all articles as readed. Event called
+  /// only if all articles were successfuly loaded and there is at least one
+  /// unreaded article.
 
   void _onAllArticlesReaded(
     AllArticlesReaded event,
@@ -151,6 +173,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
           .toList(),
     );
 
+    /// We emit new state with both updated lists
     emit(
       state.copyWith(
         latestArticles: readedLatestArticles,

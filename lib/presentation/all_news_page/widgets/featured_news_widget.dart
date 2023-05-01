@@ -6,6 +6,7 @@ import 'package:news_app/config/app_theme.dart';
 import 'package:news_app/presentation/all_news_page/widgets/article_preview.dart';
 import 'package:news_app/presentation/bloc/news.dart';
 
+/// Class for FeaturedNews list and its loading state
 class FeaturedNewsWidget extends StatelessWidget {
   const FeaturedNewsWidget({super.key});
 

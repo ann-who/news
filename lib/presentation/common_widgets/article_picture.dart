@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:news_app/config/app_text.dart';
 
 import 'package:news_app/config/app_theme.dart';
 import 'package:news_app/data/model/article.dart';
 
+/// Class that represents an article's picture. It's in "Common widgets" because
+/// it's used on both screens so we don't duplicate widget
 class ArticlePicture extends StatelessWidget {
   final Article article;
   final double cardHeight;
@@ -24,8 +25,14 @@ class ArticlePicture extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
-            return const CircularProgressIndicator(
-              color: AppColors.orange,
+            return SizedBox(
+              width: cardWidth,
+              height: cardHeight,
+              child: const Center(
+                child: CircularProgressIndicator(
+                  color: AppColors.orange,
+                ),
+              ),
             );
 
           case ConnectionState.done:
@@ -37,9 +44,9 @@ class ArticlePicture extends StatelessWidget {
             } else {
               return ClipRRect(
                 borderRadius: BorderRadius.circular(AppSizes.cardCorner),
-                child: CachedNetworkImage(
-                  imageUrl: snapshot.data.toString(),
-                  errorWidget: (context, url, error) => const Icon(
+                child: Image.network(
+                  snapshot.data.toString(),
+                  errorBuilder: (context, error, stackTrace) => const Icon(
                     Icons.error,
                     color: AppColors.error,
                   ),

@@ -1,5 +1,6 @@
 part of 'news_bloc.dart';
 
+/// Possible states are represented via enum
 enum LoadingState {
   init,
   loading,
