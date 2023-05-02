@@ -6,6 +6,7 @@ import 'package:news_app/config/app_theme.dart';
 import 'package:news_app/presentation/all_news_page/widgets/featured_news_widget.dart';
 import 'package:news_app/presentation/all_news_page/widgets/latest_news_widget.dart';
 import 'package:news_app/presentation/bloc/news.dart';
+import 'package:news_app/presentation/common_widgets/failure_widget.dart';
 
 /// Class that represents screen with two news lists and "Read all" button.
 class AllNewsPage extends StatelessWidget {
@@ -38,7 +39,7 @@ class AllNewsPage extends StatelessWidget {
             backgroundColor: AppColors.lightGray,
             color: AppColors.orange,
             onRefresh: () async {
-              // RefreshIndicator updates articles to their initial state isReaded = false
+              /// RefreshIndicator updates articles to their initial state isReaded = false
               context.read<NewsBloc>()
                 ..add(FeaturedArticlesLoaded())
                 ..add(LatestArticlesLoaded());
@@ -53,16 +54,7 @@ class AllNewsPage extends StatelessWidget {
                         previous.hasFailures != current.hasFailures,
                     builder: (context, state) {
                       if (state.hasFailures) {
-                        return Padding(
-                          padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height * 0.4,
-                          ),
-                          child: Text(
-                            AppText.appError,
-                            style: Theme.of(context).textTheme.headlineMedium,
-                            textAlign: TextAlign.center,
-                          ),
-                        );
+                        return const FailureWidget(text: AppText.appError);
                       }
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
