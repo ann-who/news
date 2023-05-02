@@ -2,7 +2,7 @@
 
 Приложение новостей
 
-* Для реализации использован немного изменённый репозитеорий <https://github.com/forestvpn/forestvpn_flutter_test/blob/main/lib/repositories/news/mock_news_repository.dart> (добавлено несколько дополнительных статей, у модели Article добавлено поле isFeatured)
+* Для реализации использован немного изменённый репозитеорий <https://github.com/forestvpn/forestvpn_flutter_test/blob/main/lib/repositories/news/mock_news_repository.dart> (добавлено несколько дополнительных статей, у модели Article добавлено поле isFeatured). Доп.статьи взяты из <https://dummyjson.com/posts>. Иконка приложения взята здесь <https://icons8.ru/icon/111271/новости>
 
 * Для управления состоянием использован пакет flutter_bloc
 
