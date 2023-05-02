@@ -29,8 +29,7 @@ class ArticleDetailsPage extends StatefulWidget {
 class _ArticleDetailsPageState extends State<ArticleDetailsPage> {
   @override
   void initState() {
-    /// Load single article
-
+    // Load single article
     context
         .read<NewsBloc>()
         .add(SingleArticleLoaded(articleId: widget.articleId));
@@ -55,8 +54,7 @@ class _ArticleDetailsPageState extends State<ArticleDetailsPage> {
                     previous.detailedArticleLoadingState !=
                     current.detailedArticleLoadingState,
                 listener: (context, state) {
-                  /// Mark article as readed only if it was loaded
-
+                  // Mark article as readed only if it was loaded
                   if (state.detailedArticle != null &&
                       state.detailedArticleLoadingState ==
                           LoadingState.loaded) {
@@ -75,7 +73,7 @@ class _ArticleDetailsPageState extends State<ArticleDetailsPage> {
 
                   return Column(
                     children: [
-                      /// Header
+                      // Header
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -95,16 +93,14 @@ class _ArticleDetailsPageState extends State<ArticleDetailsPage> {
                         ],
                       ),
                       const SizedBox(height: AppSizes.largePadding),
-
-                      /// Image
+                      // Image
                       ArticlePicture(
                         article: state.detailedArticle!,
                         cardHeight: AppSizes.cardSide,
                         cardWidth: MediaQuery.of(context).size.width,
                       ),
                       const SizedBox(height: AppSizes.largePadding),
-
-                      /// Description
+                      // Description
                       Text(
                         state.detailedArticle!.description,
                         style: Theme.of(context).textTheme.bodyMedium,
@@ -121,7 +117,6 @@ class _ArticleDetailsPageState extends State<ArticleDetailsPage> {
   }
 
   /// If the article wasn't recieved, we update all articles to get valid lists
-
   Future<bool> willPopCallback() {
     if (context.read<NewsBloc>().state.detailedArticle == null) {
       context.read<NewsBloc>()

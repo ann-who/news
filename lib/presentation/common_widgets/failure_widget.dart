@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+/// Class that represents an error message. It's in "Common widgets" because
+/// it's used on both screens so we don't duplicate widget
 class FailureWidget extends StatelessWidget {
   final String text;
 

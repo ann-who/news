@@ -14,6 +14,8 @@ class LatestNewsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<NewsBloc, NewsState>(
       buildWhen: (previous, current) =>
+          previous.latestArticlesLoadingState !=
+              current.latestArticlesLoadingState ||
           previous.latestArticles != current.latestArticles,
       builder: (context, state) {
         if (state.latestArticlesLoadingState == LoadingState.loading) {

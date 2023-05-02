@@ -39,7 +39,7 @@ class AllNewsPage extends StatelessWidget {
             backgroundColor: AppColors.lightGray,
             color: AppColors.orange,
             onRefresh: () async {
-              /// RefreshIndicator updates articles to their initial state isReaded = false
+              // RefreshIndicator updates articles to their initial state isReaded = false
               context.read<NewsBloc>()
                 ..add(FeaturedArticlesLoaded())
                 ..add(LatestArticlesLoaded());

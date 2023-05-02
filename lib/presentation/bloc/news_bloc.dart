@@ -23,7 +23,6 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
 
   /// Event handler when getting latest news.
   /// We emit multiply states in response to the incoming event.
-
   void _onLatestArticlesLoaded(
     LatestArticlesLoaded event,
     Emitter<NewsState> emit,
@@ -58,7 +57,6 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
 
   /// Event handler when getting featured news.
   /// We emit multiply states in response to the incoming event.
-
   void _onFeaturedArticlesLoaded(
     FeaturedArticlesLoaded event,
     Emitter<NewsState> emit,
@@ -93,7 +91,6 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
 
   /// Event handler when getting one article.
   /// We emit multiply states in response to the incoming event.
-
   void _onSingleArticleLoaded(
     SingleArticleLoaded event,
     Emitter<NewsState> emit,
@@ -128,7 +125,6 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
 
   /// Event handler when a specific article was readed. Event called
   /// only if this article was successfuly loaded.
-
   void _onArticleReaded(
     ArticleReaded event,
     Emitter<NewsState> emit,
@@ -157,7 +153,6 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
   /// Event handler when user wants to mark all articles as readed. Event called
   /// only if all articles were successfuly loaded and there is at least one
   /// unreaded article.
-
   void _onAllArticlesReaded(
     AllArticlesReaded event,
     Emitter<NewsState> emit,
