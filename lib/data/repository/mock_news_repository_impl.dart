@@ -4,17 +4,23 @@ import 'package:news_app/domain/repository/news_repository.dart';
 class MockNewsRepository implements AbstractNewsRepository {
   @override
   Future<List<Article>> getLatestArticles() async {
+    // For debagging purpose
+    await Future.delayed(const Duration(milliseconds: 1500));
     return _mockArticles
       ..sort((a, b) => b.publicationDate.compareTo(a.publicationDate));
   }
 
   @override
   Future<Article> getArticle({required String id}) async {
+    // For debagging purpose
+    await Future.delayed(const Duration(milliseconds: 500));
     return _mockArticles.firstWhere((e) => e.id == id);
   }
 
   @override
   Future<List<Article>> getFeaturedArticles() async {
+    // For debagging purpose
+    await Future.delayed(const Duration(seconds: 1));
     return _mockArticles.where((article) => article.isFeatured).toList();
   }
 }
